@@ -45,7 +45,7 @@ import urllib.error
 from urllib.parse import urlparse
 from pathlib import Path
 
-from .extra_tools import EXTRA_TOOL_SPECS, ExtraTools, _extract_text, _chunkify
+from extra_tools import EXTRA_TOOL_SPECS, ExtraTools, _extract_text, _chunkify
 
 
 _MAX_READ_BYTES = 256_000

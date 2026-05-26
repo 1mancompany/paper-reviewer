@@ -35,10 +35,10 @@ personality_tags:
   - evidence-grounded
   - constructive
 
-# Unlike a pure-skill talent, research-eval ships a real agentic engine
-# (research_eval/) with its own tool loop. These are the tools the engine
-# exposes to the LLM judge; they are implemented in research_eval/tools.py
-# and research_eval/extra_tools.py (see tools/research-eval/TOOL.md).
+# Unlike a pure-skill talent, research-eval ships a real agentic engine with its
+# own tool loop, implemented as flat modules at the repo root (cli.py, evaluator.py,
+# tools.py, extra_tools.py, backends.py, ...). These are the tools that engine
+# exposes to the LLM judge.
 tools:
   - read_paper
   - read_file

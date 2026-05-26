@@ -47,7 +47,7 @@ def _add_credential_args(p: argparse.ArgumentParser) -> None:
 
 
 def _resolve_config(args: argparse.Namespace):
-    from research_eval.config import EvalConfig, load_config
+    from config import EvalConfig, load_config
     cfg = load_config(Path(args.config)) if args.config else EvalConfig()
     if args.api_key:   cfg.api_key  = args.api_key
     if args.model:     cfg.model    = args.model
@@ -106,9 +106,9 @@ def _build_parser() -> argparse.ArgumentParser:
 
 
 def _run_review(args: argparse.Namespace) -> int:
-    from research_eval.evaluator import run_review
-    from research_eval.models import ReviewInput
-    from research_eval.report import to_json, to_markdown
+    from evaluator import run_review
+    from models import ReviewInput
+    from report import to_json, to_markdown
 
     paper_path   = Path(args.paper).resolve()
     work_dir     = Path(args.workspace).resolve()

@@ -30,11 +30,19 @@ all = [
 ]
 
 [project.scripts]
-research-eval = "research_eval.cli:main"
+research-eval = "cli:main"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["research_eval*"]
-
-[tool.setuptools.package-data]
-research_eval = ["skills/*.md", "review_template_en.md"]
+# Flat layout — all implementation lives directly in the repo root (no nested
+# package). Modules are installed top-level; skills/ and review_template_en.md
+# are resolved at runtime via __file__-relative paths (use `pip install -e .`).
+[tool.setuptools]
+py-modules = [
+    "cli",
+    "evaluator",
+    "tools",
+    "extra_tools",
+    "backends",
+    "models",
+    "report",
+    "config",
+]

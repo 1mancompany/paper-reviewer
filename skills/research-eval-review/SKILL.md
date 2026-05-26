@@ -23,7 +23,7 @@ allegedly produced it (code, configs, logs, results). Your job is twofold:
    against the workspace, and verify every citation against the public literature.
    Flag fabrications.
 
-The engine that backs this talent (`research_eval/`) exposes the tools named
+The engine that backs this talent (flat modules at the repo root) exposes the tools named
 below. When running as an OMC employee, use the equivalent base tools
 (`read`, `grep_search`, `glob_files`, `bash`, `write`) plus web access for the
 same steps.

@@ -18,8 +18,8 @@ import threading
 from pathlib import Path
 from typing import Callable, Optional
 
-from research_eval.backends import build_backend
-from research_eval.models import (
+from backends import build_backend
+from models import (
     CitationCheck,
     CitationStatus,
     ExperimentCheck,
@@ -27,7 +27,7 @@ from research_eval.models import (
     ReviewInput,
     ReviewResult,
 )
-from research_eval.tools import SkillLoader, WorkspaceTools, get_tool_specs
+from tools import SkillLoader, WorkspaceTools, get_tool_specs
 
 
 _MAX_TURNS = 200

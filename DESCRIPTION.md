@@ -43,7 +43,7 @@ It answers two questions a normal review skips:
 
 ## Tools Provided
 
-The bundled `research_eval/` engine exposes ~16 tools to the LLM judge:
+The bundled agentic engine (flat modules at the repo root) exposes ~16 tools to the LLM judge:
 
 - Paper / workspace: `read_paper`, `read_file`, `read_file_lines`, `list_files`,
   `search_in_files`, `run_command`, `write_file`, `python_eval`, `http_request`
