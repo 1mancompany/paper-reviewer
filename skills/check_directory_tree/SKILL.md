@@ -1,3 +1,8 @@
+---
+name: check_directory_tree
+description: Verify that a workspace directory has the expected structure for the kind of research described in the paper — code, configs, data, results, logs.
+---
+
 # check_directory_tree
 
 Verify that a workspace directory has the expected structure for the kind of research described in the paper — code, configs, data, results, logs.

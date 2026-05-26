@@ -1,4 +1,4 @@
-"""Extra tools beyond the base set in tools.py.
+"""Extra tools beyond the base set in review_tools.py.
 
   web_search             — Tavily search → ranked results as markdown
   web_fetch              — fetch URL → main content as clean markdown

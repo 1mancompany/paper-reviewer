@@ -39,7 +39,7 @@ research-eval = "cli:main"
 py-modules = [
     "cli",
     "evaluator",
-    "tools",
+    "review_tools",
     "extra_tools",
     "backends",
     "models",

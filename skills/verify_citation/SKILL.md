@@ -1,3 +1,8 @@
+---
+name: verify_citation
+description: Independently verify that a citation exists in the literature and that the title / authors / venue / year match. Detect fabricated (hallucinated) references.
+---
+
 # verify_citation
 
 Independently verify that a citation exists in the literature and that the title / authors / venue / year match. Detect fabricated (hallucinated) references.

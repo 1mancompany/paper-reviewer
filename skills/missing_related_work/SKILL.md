@@ -1,3 +1,8 @@
+---
+name: missing_related_work
+description: Identify works that should have been cited but aren't, to populate Part III of the review template.
+---
+
 # missing_related_work
 
 Identify works that should have been cited but aren't, to populate Part III of the review template.

@@ -1,3 +1,8 @@
+---
+name: extract_references
+description: Pull the full reference / bibliography list out of the paper, parse each entry into structured form, and produce a numbered list ready for citation verification.
+---
+
 # extract_references
 
 Pull the full reference / bibliography list out of the paper, parse each entry into structured form, and produce a numbered list ready for citation verification.

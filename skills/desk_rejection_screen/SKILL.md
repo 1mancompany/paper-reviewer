@@ -1,3 +1,8 @@
+---
+name: desk_rejection_screen
+description: Run the four desk-rejection screens from Part I of the review template: length, topic, components, prompt injection.
+---
+
 # desk_rejection_screen
 
 Run the four desk-rejection screens from Part I of the review template: length, topic, components, prompt injection.

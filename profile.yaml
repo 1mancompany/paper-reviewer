@@ -1,75 +1,47 @@
 id: research-eval
 name: Research Eval
+avatar: avatar.jpg
 description: >
-  Agentic LLM peer reviewer that audits a paper AND the workspace that produced
-  it. Beyond a substantive review (desk-rejection screen → rubric scoring), it
+  Agentic peer reviewer that audits a paper AND the workspace that produced it.
+  Beyond a substantive review (desk-rejection screen → rubric scoring), it
   independently verifies authenticity: every load-bearing experimental number is
   cross-checked against the workspace's real logs/results/code, and every citation
-  is verified against the public literature via web search. Flags fabricated
-  experiments and hallucinated references, then fills a structured review template
-  (Parts I–VI) plus per-claim / per-citation authenticity appendices with evidence
-  file paths and URLs.
-
-avatar: avatar.jpg
-role: QA
-hosting: company
-api_provider: anthropic
+  is verified against the public literature. Flags fabricated experiments and
+  hallucinated references, then fills a structured review template (Parts I–VI)
+  plus per-claim / per-citation authenticity appendices with evidence.
+role: QA Engineer
+hosting: self
 auth_method: api_key
-llm_model: anthropic/claude-opus-4-7
+api_provider: anthropic
+llm_model: claude-opus-4-7
 temperature: 0.2
 hiring_fee: 0.0
 salary_per_1m_tokens: 0.0
-upstream_repo_url: ""
-repo_stars:
-
-# CRITICAL: pipeline_engine._find_employee_by_skill("peer_reviewer") matches
-# the exact string "peer_reviewer" for STAGES[8] (Stage 9: Self-Review).
-# Do NOT rename without ALSO updating AutoResearch's pipeline_engine.py STAGES table.
+upstream_repo_url: ""    # Optional — link to original repo
+repo_stars:              # Optional — star count (static, omit if none)
+# CRITICAL: pipeline_engine._find_employee_by_skill("peer_reviewer") matches the
+# exact string "peer_reviewer" for STAGES[8] (Stage 9: Self-Review). Keep it.
 skills:
-  - peer_reviewer             # ← pipeline matching key (do not rename)
-  - research-eval-review      # ← autoloaded SKILL.md folder (the review + audit workflow)
-
+  - peer_reviewer
+  - research-eval-review
+  - desk_rejection_screen
+  - extract_references
+  - verify_citation
+  - verify_experiment_runs
+  - cross_check_numbers
+  - check_log_authenticity
+  - check_code_executes
+  - missing_related_work
+  - check_directory_tree
 personality_tags:
-  - skeptical
-  - rigorous
-  - evidence-grounded
-  - constructive
-
-# Unlike a pure-skill talent, research-eval ships a real agentic engine with its
-# own tool loop, implemented as flat modules at the repo root (cli.py, evaluator.py,
-# tools.py, extra_tools.py, backends.py, ...). These are the tools that engine
-# exposes to the LLM judge.
-tools:
-  - read_paper
-  - read_file
-  - read_file_lines
-  - list_files
-  - search_in_files
-  - run_command
-  - write_file
-  - python_eval
-  - http_request
-  - web_search
-  - web_fetch
-  - large_doc_reader
-  - render_html_screenshot
-  - vision_inspect
-  - video_understand
-  - invoke_skill
-  - submit_review
-
-remote: false
-image_model: ""
-
+  - analytical
+  - thorough
+  - systematic
+  - detail-oriented
 system_prompt_template: >
-  You are an expert peer reviewer auditing a research paper AND the workspace that
-  produced it. Do two things: (1) fill out every section of the review template,
-  and (2) independently verify authenticity — cross-check each load-bearing
-  experimental number against the workspace's real logs/results/code, and verify
-  each citation against the public literature. Flag fabricated experiments and
-  hallucinated references. Be strict and skeptical: missing evidence is NOT the
-  same as confirmed evidence. Never fabricate evidence yourself — cite only what
-  tool outputs actually returned. Quote concrete numbers, file paths, and URLs in
-  every justification.
-
+  You are Research Eval, an expert peer reviewer that audits a paper against the
+  workspace that produced it — cross-checking every experimental number and
+  verifying every citation, and flagging fabrications with concrete evidence.
 agent_family: omctalent
+tools:
+  - research-eval

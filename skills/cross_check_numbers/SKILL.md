@@ -1,3 +1,8 @@
+---
+name: cross_check_numbers
+description: Pull every quantitative result from the paper (Tables + headline numbers) and grep the workspace to confirm each appears in real artifacts. Drives the most important fabrication detector.
+---
+
 # cross_check_numbers
 
 Pull every quantitative result from the paper (Tables + headline numbers) and grep the workspace to confirm each appears in real artifacts. Drives the most important fabrication detector.

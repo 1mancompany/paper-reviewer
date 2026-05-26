@@ -19,41 +19,38 @@ It answers two questions a normal review skips:
 2. **Are the citations real?** Every reference is verified against the public
    literature via web search. Hallucinated / mis-attributed references get flagged.
 
+It is **engine-backed**: an agentic loop drives ~16 internal tools (`read_paper`,
+`search_in_files`, `run_command`, `python_eval`, `web_search`, `web_fetch`,
+`invoke_skill`, `submit_review`, …) across Anthropic and OpenAI-compatible
+backends, then fills a structured review template (Parts I–VI) plus per-claim /
+per-citation authenticity appendices — every verdict carrying evidence
+(workspace `file:line` or a source URL).
+
 ## Use Cases
 
-- **Pre-submission audit** — catch fabricated-looking results and bad citations
+- **Pre-submission audit** — Catch fabricated-looking results and bad citations
   before a real reviewer (or a venue's integrity check) does.
-- **AutoResearch Stage 9** — plug in as the `peer_reviewer` producer for an
+- **AutoResearch Stage 9** — Plug in as the `peer_reviewer` producer for an
   adversarial self-review pipeline.
-- **CI gating** — exit code is non-zero on desk-rejection failure or any fabricated
+- **CI gating** — Exit code is non-zero on desk-rejection failure or any fabricated
   experiment/citation, so `research-eval review ... && deploy` works as a gate.
-- **Citation-only screen** — point the workspace at an empty dir to audit just the
+- **Citation-only screen** — Point the workspace at an empty dir to audit just the
   bibliography.
 
-## What Sets It Apart
+## Demo
 
-| Vanilla LLM peer review | Research Eval |
-|---|---|
-| Reads the PDF only | Reads the PDF **and** the workspace that produced it |
-| "Looks plausible" | Each number cross-checked against real logs/results — `verified` … `fabricated` |
-| Trusts the bibliography | Every citation web-verified — `verified` … `fabricated` |
-| Prose opinion | Filled review template (Parts I–VI) + per-claim / per-citation audit appendices |
-| No evidence trail | Every verdict carries evidence: workspace `file:line` or a source URL |
-| Single model only | Anthropic **and** OpenAI-compatible backends (Claude / GPT / OpenRouter / DeepSeek / Qwen) |
+<!-- Add screenshots, GIFs, or video links showcasing the agent in action -->
+<!-- Example: ![Demo Screenshot](./assets/demo.png) -->
 
-## Tools Provided
+## Success Stories
 
-The bundled agentic engine (flat modules at the repo root) exposes ~16 tools to the LLM judge:
-
-- Paper / workspace: `read_paper`, `read_file`, `read_file_lines`, `list_files`,
-  `search_in_files`, `run_command`, `write_file`, `python_eval`, `http_request`
-- Web / vision: `web_search`, `web_fetch`, `large_doc_reader`,
-  `render_html_screenshot`, `vision_inspect`, `video_understand`
-- Composite: `invoke_skill` (9 built-in review workflows)
-- Final: `submit_review`
+<!-- Share real-world results or testimonials -->
+<!-- Example: "Caught 3 hallucinated citations and 2 unbacked table numbers in a draft before submission." -->
 
 ---
 
-> **Content Policy** — This description is publicly visible on Talent Market. No
-> illegal / political / explicit content. All external links point to legitimate,
-> safe resources.
+> **Content Policy**: This description is publicly visible on the Talent Market platform.
+> Do not include illegal content, political propaganda, child exploitation material,
+> pornography, or graphic violence. Violations will result in talent removal and
+> repeated offenses will lead to permanent account suspension.
+> All external links must point to legitimate, safe resources.

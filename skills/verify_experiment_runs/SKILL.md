@@ -1,3 +1,8 @@
+---
+name: verify_experiment_runs
+description: Verify that experiments reported in the paper actually ran in the workspace — i.e. that the numbers, plots, and tables are backed by real training/eval artifacts, not LLM-fabricated values.
+---
+
 # verify_experiment_runs
 
 Verify that experiments reported in the paper actually ran in the workspace — i.e. that the numbers, plots, and tables are backed by real training/eval artifacts, not LLM-fabricated values.

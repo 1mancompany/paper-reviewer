@@ -76,8 +76,51 @@ _SKILL_NAME_RE = re.compile(r"^[A-Za-z0-9_-]+$")
 _BUILTIN_SKILLS_DIR = Path(__file__).parent / "skills"
 
 
+def _extract_description(content: str) -> str:
+    """Pull a one-line description from a skill file.
+
+    Prefers the `description:` value in YAML frontmatter (handles folded
+    `>` / `|` scalars); otherwise falls back to the first non-heading line.
+    """
+    lines = content.splitlines()
+    body_start = 0
+    if lines and lines[0].strip() == "---":
+        fm_end = None
+        for i in range(1, len(lines)):
+            if lines[i].strip() == "---":
+                fm_end = i
+                break
+        if fm_end is not None:
+            body_start = fm_end + 1
+            for i in range(1, fm_end):
+                m = re.match(r"\s*description\s*:\s*(.*)", lines[i])
+                if not m:
+                    continue
+                val = m.group(1).strip()
+                if val in (">", "|", ">-", "|-", ">+", "|+"):
+                    parts: list[str] = []
+                    for j in range(i + 1, fm_end):
+                        cont = lines[j]
+                        if cont.strip() == "":
+                            continue
+                        if not cont.startswith((" ", "\t")):
+                            break
+                        parts.append(cont.strip())
+                    val = " ".join(parts)
+                return val
+    for line in lines[body_start:]:
+        stripped = line.strip()
+        if stripped and not stripped.startswith("#"):
+            return stripped
+    return ""
+
+
 class SkillLoader:
-    """Loads skill workflow markdown files from one or more directories."""
+    """Loads skill workflow markdown from one or more directories.
+
+    Talent-template layout: each skill is a folder `<name>/SKILL.md`. A flat
+    `<name>.md` is still accepted (back-compat for a user-supplied --skills-dir).
+    """
 
     def __init__(self, extra_dirs: list[Path] | None = None) -> None:
         dirs: list[Path] = list(extra_dirs or [])
@@ -88,36 +131,38 @@ class SkillLoader:
         seen: set[str] = set()
         names: list[str] = []
         for d in self._dirs:
-            if d.is_dir():
-                for f in sorted(d.glob("*.md")):
-                    name = f.stem
-                    if name not in seen:
-                        seen.add(name)
-                        names.append(name)
+            if not d.is_dir():
+                continue
+            # Folder form: <dir>/<name>/SKILL.md
+            for sub in sorted(d.iterdir()):
+                if sub.is_dir() and (sub / "SKILL.md").exists() and sub.name not in seen:
+                    seen.add(sub.name)
+                    names.append(sub.name)
+            # Flat form: <dir>/<name>.md
+            for f in sorted(d.glob("*.md")):
+                if f.stem not in seen:
+                    seen.add(f.stem)
+                    names.append(f.stem)
         return sorted(names)
+
+    def _path_for(self, name: str) -> Path | None:
+        for d in self._dirs:
+            nested = d / name / "SKILL.md"
+            if nested.exists():
+                return nested
+            flat = d / f"{name}.md"
+            if flat.exists():
+                return flat
+        return None
 
     def load(self, name: str) -> str | None:
         if not _SKILL_NAME_RE.match(name):
             return None
-        for d in self._dirs:
-            candidate = d / f"{name}.md"
-            if candidate.exists():
-                return candidate.read_text(encoding="utf-8")
-        return None
+        p = self._path_for(name)
+        return p.read_text(encoding="utf-8") if p else None
 
     def descriptions(self) -> dict[str, str]:
-        result: dict[str, str] = {}
-        for name in self.names():
-            content = self.load(name) or ""
-            lines = content.splitlines()
-            desc = ""
-            for line in lines:
-                stripped = line.strip()
-                if stripped and not stripped.startswith("#"):
-                    desc = stripped
-                    break
-            result[name] = desc
-        return result
+        return {name: _extract_description(self.load(name) or "") for name in self.names()}
 
 
 _BASE_TOOL_SPECS: list[dict] = [

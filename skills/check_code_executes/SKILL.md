@@ -1,3 +1,8 @@
+---
+name: check_code_executes
+description: Confirm that the workspace code at least imports and that key entry-points referenced in the paper are real, callable, and produce the claimed outputs when reasonable.
+---
+
 # check_code_executes
 
 Confirm that the workspace code at least imports and that key entry-points referenced in the paper are real, callable, and produce the claimed outputs when reasonable.

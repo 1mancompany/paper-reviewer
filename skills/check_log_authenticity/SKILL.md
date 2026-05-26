@@ -1,3 +1,8 @@
+---
+name: check_log_authenticity
+description: Inspect training / evaluation logs to confirm they were produced by real runs (not handcrafted by an LLM after the fact).
+---
+
 # check_log_authenticity
 
 Inspect training / evaluation logs to confirm they were produced by real runs (not handcrafted by an LLM after the fact).

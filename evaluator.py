@@ -27,7 +27,7 @@ from models import (
     ReviewInput,
     ReviewResult,
 )
-from tools import SkillLoader, WorkspaceTools, get_tool_specs
+from review_tools import SkillLoader, WorkspaceTools, get_tool_specs
 
 
 _MAX_TURNS = 200
